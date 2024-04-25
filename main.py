@@ -1,10 +1,15 @@
 from typing import NoReturn
 from src.utils.read_file import read_file
+from src.gauss_seidel import gauss_seidel
 from config.settings import FILE_PATH
 
 def main() -> NoReturn:
-    read_file(__path=FILE_PATH)
-    ...
+    coefficients, independent_terms = read_file(__path=FILE_PATH)
+
+    x = gauss_seidel(coefficients=coefficients, independent_terms=independent_terms)
+
+    for i in range(len(x)):
+        print(f"x{i} = {x[i]}")
 
 if __name__ == "__main__":
     main()
