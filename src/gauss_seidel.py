@@ -1,4 +1,16 @@
 import numpy as np
+import typing
+
+
+def is_diagonally_dominant(matrix: np.ndarray) -> bool:
+    n = matrix.shape[0]
+    for i in range(n):
+        diagonal_element: typing.Any = np.abs(matrix[i, i])
+        row_sum_except_diagonal = np.sum(
+            np.abs(matrix[i, :])) - diagonal_element
+        if diagonal_element <= row_sum_except_diagonal:
+            return False
+    return True
 
 
 def gauss_seidel(coefficients: np.ndarray, independent_terms: np.ndarray, tolerance: float = 1e-6, max_iterations: int = 1000) -> np.ndarray:
@@ -17,6 +29,9 @@ def gauss_seidel(coefficients: np.ndarray, independent_terms: np.ndarray, tolera
     Raises:
         Exception: If no solution is found within the maximum number of iterations.
     """
+
+    if not is_diagonally_dominant(matrix=coefficients):
+        raise Exception("Matrix is not diagonally dominant")
 
     n = coefficients.shape[0]
     x = np.zeros(n)  # Initialize solution vector with zeros
