@@ -12,7 +12,7 @@ def main() -> NoReturn:
         x = gauss_seidel(coefficients=coefficients,
                          independent_terms=independent_terms)
         for i in range(len(x)):
-            print(f"x{i} = {x[i]}")
+            print(f"x{i} = {round(x[i], 2)}")
     except:
         traceback.print_exc()
 
